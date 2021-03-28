@@ -13,3 +13,6 @@
 
 # allow env test file
 !.env.test
+
+# not build files
+/bin
