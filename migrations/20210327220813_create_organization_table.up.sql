@@ -6,4 +6,3 @@ CREATE TABLE IF NOT EXISTS organizations (
 	updated_at	TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 	deleted_at	TIMESTAMPTZ
 );
-
