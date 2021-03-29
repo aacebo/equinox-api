@@ -1,6 +1,8 @@
-package organization
+package organizations
 
-import "time"
+import (
+	"time"
+)
 
 type Model struct {
 	ID        string    `json:"id" binding:"required"`

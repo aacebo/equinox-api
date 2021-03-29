@@ -1,4 +1,4 @@
-package organization
+package organizations
 
 import (
 	"github.com/gin-gonic/gin"

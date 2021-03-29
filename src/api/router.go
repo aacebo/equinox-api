@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/aacebo/equinox-api/src/api/organization"
+	"github.com/aacebo/equinox-api/src/api/organizations"
 )
 
 func Router(env string, db *sql.DB) *gin.Engine {
@@ -16,13 +16,14 @@ func Router(env string, db *sql.DB) *gin.Engine {
 	}
 
 	gin.SetMode(mode)
+
 	var r = gin.New()
-	var orgRepository = organization.NewRepository(db)
+	var orgRepository = organizations.NewRepository(db)
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	organization.Controller(*orgRepository)(r)
+	organizations.Controller(*orgRepository)(r)
 
 	return r
 }
