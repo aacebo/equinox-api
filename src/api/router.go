@@ -1,11 +1,14 @@
 package api
 
 import (
-	"github.com/aacebo/equinox-api/src/api/organization"
+	"database/sql"
+
 	"github.com/gin-gonic/gin"
+
+	"github.com/aacebo/equinox-api/src/api/organization"
 )
 
-func Router(env string) *gin.Engine {
+func Router(env string, db *sql.DB) *gin.Engine {
 	var mode = gin.DebugMode
 
 	if env == "production" {
@@ -14,11 +17,12 @@ func Router(env string) *gin.Engine {
 
 	gin.SetMode(mode)
 	var r = gin.New()
+	var orgRepository = organization.NewRepository(db)
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	organization.Controller(r)
+	organization.Controller(*orgRepository)(r)
 
 	return r
 }

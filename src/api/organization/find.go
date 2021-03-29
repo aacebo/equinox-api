@@ -6,6 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Find(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{"data": "hello world"})
+func Find(orgRepository Repository) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		var orgs = orgRepository.Find()
+		ctx.JSON(http.StatusOK, gin.H{"data": orgs})
+	}
 }
