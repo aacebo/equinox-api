@@ -13,10 +13,10 @@ run:
 	go run src/main.go
 
 migrate-up:
-	migrate -source file://migrations -database $(POSTGRES_CONNECTION_STRING) up
+	migrate -source file://sql/migrations -database $(POSTGRES_CONNECTION_STRING) up
 
 migrate-down:
-	migrate -source file://migrations -database $(POSTGRES_CONNECTION_STRING) down
+	migrate -source file://sql/migrations -database $(POSTGRES_CONNECTION_STRING) down
 
 migrate-new:
-	migrate create -ext sql -dir migrations $(name)
+	migrate create -ext sql -dir sql/migrations $(name)

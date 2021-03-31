@@ -7,5 +7,4 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.14.1 // indirect
 	github.com/joho/godotenv v1.3.0
 	github.com/lib/pq v1.10.0
-	github.com/sirupsen/logrus v1.8.1
 )

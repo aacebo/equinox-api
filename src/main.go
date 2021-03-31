@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
-	log "github.com/sirupsen/logrus"
 
 	"github.com/aacebo/equinox-api/src/api"
 	"github.com/aacebo/equinox-api/src/db"
@@ -21,9 +21,11 @@ func main() {
 
 	var port = os.Getenv("PORT")
 
-	log.Infof("running on %s", env)
+	log.Printf("running on %s", env)
 
 	var db = db.Connect()
+
+	log.Println("connected to database...")
 
 	defer db.Close()
 
