@@ -1,4 +1,4 @@
-package errors
+package http
 
 import (
 	"github.com/aacebo/equinox-api/src/log"
@@ -6,16 +6,16 @@ import (
 
 var _log = log.New("HttpError")
 
-type HttpError struct {
+type Error struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
 
-func New(code int, err error) *HttpError {
-	var e = new(HttpError)
+func NewError(code int, err error) *Error {
+	var e = new(Error)
 
 	e.Code = code
-	e.Message = HttpErrorMessages[code]
+	e.Message = Messages[code]
 
 	if code >= 500 {
 		_log.Error(err)

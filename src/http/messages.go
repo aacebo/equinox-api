@@ -1,7 +1,7 @@
-package errors
+package http
 
 import "net/http"
 
-var HttpErrorMessages = map[int]string{
+var Messages = map[int]string{
 	http.StatusInternalServerError: "internal server error",
 }
