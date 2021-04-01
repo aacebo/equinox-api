@@ -3,13 +3,12 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"os"
 
 	_ "github.com/lib/pq"
 )
 
-func Connect() *sql.DB {
+func Connect() (*sql.DB, error) {
 	var uri = fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		os.Getenv("PG_HOST"),
 		5432,
@@ -21,14 +20,14 @@ func Connect() *sql.DB {
 	var db, err = sql.Open("postgres", uri)
 
 	if err != nil {
-		log.Fatal(err)
+		return db, err
 	}
 
 	err = db.Ping()
 
 	if err != nil {
-		log.Fatal(err)
+		return db, err
 	}
 
-	return db
+	return db, nil
 }
