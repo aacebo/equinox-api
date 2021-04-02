@@ -34,28 +34,17 @@ func (r *Repository) Find() ([]*Model, error) {
 
 	defer rows.Close()
 
-	return r._RowsToArray(rows)
+	return NewModels(rows)
 }
 
-func (r *Repository) _RowsToArray(rows *sql.Rows) ([]*Model, error) {
-	var res = []*Model{}
+func (r *Repository) FindBySlug(slug string) (*Model, error) {
+	var rows, err = r._db.Query(r._sql["find_by_slug"], slug)
 
-	for rows.Next() {
-		var model = new(Model)
-		var err = rows.Scan(
-			&model.ID,
-			&model.Slug,
-			&model.Name,
-			&model.CreatedAt,
-			&model.UpdatedAt,
-		)
-
-		if err != nil {
-			return nil, err
-		}
-
-		res = append(res, model)
+	if err != nil {
+		return nil, err
 	}
 
-	return res, nil
+	defer rows.Close()
+
+	return NewModel(rows)
 }
