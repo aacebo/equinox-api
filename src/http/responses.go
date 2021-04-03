@@ -6,13 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InternalServerError(ctx *gin.Context, err error) {
-	ctx.JSON(
-		http.StatusInternalServerError,
-		gin.H{"error": NewError(http.StatusInternalServerError, err)},
-	)
-}
-
 func NotFound(ctx *gin.Context) {
 	ctx.JSON(
 		http.StatusNotFound,

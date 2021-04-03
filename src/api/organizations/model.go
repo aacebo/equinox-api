@@ -2,6 +2,7 @@ package organizations
 
 import (
 	"database/sql"
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -63,7 +64,7 @@ func NewModels(rows *sql.Rows) []*Model {
 
 func Mock() *Model {
 	var model = new(Model)
-	var name = faker.Company().Name()
+	var name = fmt.Sprintf("%s %s", faker.Company().Name(), faker.RandomString(5))
 
 	model.ID = uuid.NewString()
 	model.Slug = slug.Make(name)
