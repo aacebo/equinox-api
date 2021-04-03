@@ -12,6 +12,9 @@ clean:
 run:
 	go run src/main.go
 
+seed:
+	go run src/seed/seed.go
+
 migrate-up:
 	migrate -source file://sql/migrations -database $(POSTGRES_CONNECTION_STRING) up
 

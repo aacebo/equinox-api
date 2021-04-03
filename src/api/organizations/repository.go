@@ -11,25 +11,25 @@ type Repository struct {
 	_sql map[string]string
 }
 
-func NewRepository(conn *sql.DB) (*Repository, error) {
+func NewRepository(conn *sql.DB) *Repository {
 	var r = new(Repository)
-	var q, qe = db.LoadScripts("organizations")
+	var q, err = db.LoadScripts("organizations")
 
-	if qe != nil {
-		return nil, qe
+	if err != nil {
+		log.Error(err)
 	}
 
 	r._db = conn
 	r._sql = q
 
-	return r, nil
+	return r
 }
 
-func (r *Repository) Find() ([]*Model, error) {
+func (r *Repository) Find() []*Model {
 	var rows, err = r._db.Query(r._sql["find"])
 
 	if err != nil {
-		return nil, err
+		log.Error(err)
 	}
 
 	defer rows.Close()
@@ -37,14 +37,25 @@ func (r *Repository) Find() ([]*Model, error) {
 	return NewModels(rows)
 }
 
-func (r *Repository) FindBySlug(slug string) (*Model, error) {
+func (r *Repository) FindBySlug(slug string) *Model {
 	var rows, err = r._db.Query(r._sql["find_by_slug"], slug)
 
 	if err != nil {
-		return nil, err
+		log.Error(err)
 	}
 
 	defer rows.Close()
 
 	return NewModel(rows)
+}
+
+func (r *Repository) Mock() *Model {
+	var model = Mock()
+	var _, err = r._db.Exec(r._sql["create"], model.ID, model.Slug, model.Name, model.CreatedAt, model.UpdatedAt)
+
+	if err != nil {
+		log.Error(err)
+	}
+
+	return model
 }

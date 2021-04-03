@@ -13,10 +13,10 @@ func InternalServerError(ctx *gin.Context, err error) {
 	)
 }
 
-func NotFound(ctx *gin.Context, err error) {
+func NotFound(ctx *gin.Context) {
 	ctx.JSON(
 		http.StatusNotFound,
-		gin.H{"error": NewError(http.StatusNotFound, err)},
+		gin.H{"error": NewError(http.StatusNotFound)},
 	)
 }
 

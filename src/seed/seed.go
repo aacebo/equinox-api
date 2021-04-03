@@ -3,24 +3,24 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/joho/godotenv"
 
-	"github.com/aacebo/equinox-api/src/api"
+	"github.com/aacebo/equinox-api/src/api/organizations"
 	"github.com/aacebo/equinox-api/src/db"
 	"github.com/aacebo/equinox-api/src/logger"
 )
 
 func main() {
 	var env = os.Getenv("GO_ENV")
+	var count, _ = strconv.Atoi(os.Getenv("SEED_COUNT"))
 	var err = godotenv.Load(fmt.Sprintf(".env.%s", env))
-	var log = logger.New("main")
+	var log = logger.New("seed")
 
 	if err != nil {
 		log.Error(err)
 	}
-
-	var port = os.Getenv("PORT")
 
 	log.Infof("running on %s", env)
 
@@ -34,11 +34,9 @@ func main() {
 
 	defer db.Close()
 
-	var router, routererr = api.Router(env, db)
+	var orgr = organizations.NewRepository(db)
 
-	if routererr != nil {
-		log.Error(routererr)
+	for i := 0; i < count; i++ {
+		orgr.Mock()
 	}
-
-	router.Run(fmt.Sprintf("localhost:%s", port))
 }

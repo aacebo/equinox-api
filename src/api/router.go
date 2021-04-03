@@ -18,11 +18,7 @@ func Router(env string, db *sql.DB) (*gin.Engine, error) {
 	gin.SetMode(mode)
 
 	var r = gin.New()
-	var orgr, orgrerr = organizations.NewRepository(db)
-
-	if orgrerr != nil {
-		return nil, orgrerr
-	}
+	var orgr = organizations.NewRepository(db)
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
