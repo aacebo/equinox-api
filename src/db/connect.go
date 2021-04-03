@@ -6,9 +6,13 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
+
+	"github.com/aacebo/equinox-api/src/logger"
 )
 
-func Connect() (*sql.DB, error) {
+var log = logger.New("db")
+
+func Connect() *sql.DB {
 	var uri = fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		os.Getenv("PG_HOST"),
 		5432,
@@ -20,14 +24,14 @@ func Connect() (*sql.DB, error) {
 	var db, err = sql.Open("postgres", uri)
 
 	if err != nil {
-		return db, err
+		log.Error(err)
 	}
 
 	err = db.Ping()
 
 	if err != nil {
-		return db, err
+		log.Error(err)
 	}
 
-	return db, nil
+	return db
 }

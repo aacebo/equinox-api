@@ -24,11 +24,7 @@ func main() {
 
 	log.Infof("running on %s", env)
 
-	var db, dberr = db.Connect()
-
-	if dberr != nil {
-		log.Error(dberr)
-	}
+	var db = db.Connect()
 
 	log.Info("connected to database...")
 

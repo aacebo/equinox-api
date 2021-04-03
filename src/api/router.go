@@ -23,7 +23,7 @@ func Router(env string, db *sql.DB) (*gin.Engine, error) {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	organizations.Controller(*orgr)(r)
+	organizations.Controller(orgr)(r)
 
 	return r, nil
 }

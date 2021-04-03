@@ -8,7 +8,7 @@ import (
 
 var log = logger.New("organizations")
 
-func Controller(orgr Repository) func(r *gin.Engine) *gin.RouterGroup {
+func Controller(orgr *Repository) func(r *gin.Engine) *gin.RouterGroup {
 	return func(r *gin.Engine) *gin.RouterGroup {
 		var g = r.Group("/organizations")
 		{

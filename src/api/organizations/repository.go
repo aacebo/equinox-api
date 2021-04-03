@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/aacebo/equinox-api/src/db"
+	"github.com/aacebo/equinox-api/src/page"
 )
 
 type Repository struct {
@@ -25,8 +26,8 @@ func NewRepository(conn *sql.DB) *Repository {
 	return r
 }
 
-func (r *Repository) Find() []*Model {
-	var rows, err = r._db.Query(r._sql["find"])
+func (r *Repository) Find(p *page.Page) []*Model {
+	var rows, err = r._db.Query(r._sql["find"], p.Like(), p.Skip(), p.PerPage)
 
 	if err != nil {
 		log.Error(err)
