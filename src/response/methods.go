@@ -1,4 +1,4 @@
-package http
+package response
 
 import (
 	"net/http"
@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/aacebo/equinox-api/src/page"
-	"github.com/aacebo/equinox-api/src/response"
 )
 
 func NotFound(ctx *gin.Context) {
@@ -19,14 +18,14 @@ func NotFound(ctx *gin.Context) {
 func Ok(ctx *gin.Context, data interface{}) {
 	ctx.JSON(
 		http.StatusOK,
-		response.New(data),
+		New(data),
 	)
 }
 
 func OkPaged(ctx *gin.Context, total int, data interface{}) {
 	ctx.JSON(
 		http.StatusOK,
-		response.NewPaged(
+		NewPaged(
 			page.New(ctx),
 			total,
 			data,

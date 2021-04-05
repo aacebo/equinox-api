@@ -1,4 +1,4 @@
-package http
+package response
 
 import "net/http"
 
@@ -7,13 +7,13 @@ var messages = map[int]string{
 	http.StatusNotFound:            "not found",
 }
 
-type Error struct {
+type ErrorResponse struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
 
-func NewError(code int) *Error {
-	var e = new(Error)
+func NewError(code int) *ErrorResponse {
+	var e = new(ErrorResponse)
 
 	e.Code = code
 	e.Message = messages[code]
