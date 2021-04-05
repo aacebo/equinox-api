@@ -8,7 +8,7 @@ import (
 	"github.com/aacebo/equinox-api/src/api/organizations"
 )
 
-func Router(env string, db *sql.DB) (*gin.Engine, error) {
+func Router(env string, db *sql.DB) *gin.Engine {
 	var mode = gin.DebugMode
 
 	if env == "production" {
@@ -25,5 +25,5 @@ func Router(env string, db *sql.DB) (*gin.Engine, error) {
 
 	organizations.Controller(orgr)(r)
 
-	return r, nil
+	return r
 }

@@ -9,27 +9,27 @@ import (
 
 func LoadScripts(dir string) (map[string]string, error) {
 	var queries = map[string]string{}
-	var cwd, cwde = os.Getwd()
+	var cwd, cwderr = os.Getwd()
 
-	if cwde != nil {
-		return queries, cwde
+	if cwderr != nil {
+		return queries, cwderr
 	}
 
 	var path = fmt.Sprintf("%s/sql/%s", cwd, dir)
-	var files, filese = ioutil.ReadDir(path)
+	var files, fileserr = ioutil.ReadDir(path)
 
-	if filese != nil {
-		return queries, filese
+	if fileserr != nil {
+		return queries, fileserr
 	}
 
 	for _, f := range files {
 		if f.IsDir() == false {
 			var name = f.Name()
 
-			var c, ce = ioutil.ReadFile(fmt.Sprintf("%s/%s", path, name))
+			var c, cerr = ioutil.ReadFile(fmt.Sprintf("%s/%s", path, name))
 
-			if ce != nil {
-				return queries, ce
+			if cerr != nil {
+				return queries, cerr
 			}
 
 			queries[strings.ReplaceAll(name, ".sql", "")] = string(c)

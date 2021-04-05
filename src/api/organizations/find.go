@@ -9,8 +9,8 @@ import (
 
 func Find(orgr *Repository) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		var orgs = orgr.Find(page.New(ctx))
+		var orgs, total = orgr.Find(page.New(ctx))
 
-		http.Ok(ctx, orgs)
+		http.OkPaged(ctx, total, orgs)
 	}
 }

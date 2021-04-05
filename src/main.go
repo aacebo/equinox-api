@@ -30,11 +30,7 @@ func main() {
 
 	defer db.Close()
 
-	var router, routererr = api.Router(env, db)
-
-	if routererr != nil {
-		log.Error(routererr)
-	}
+	var router = api.Router(env, db)
 
 	router.Run(fmt.Sprintf("localhost:%s", port))
 }

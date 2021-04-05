@@ -26,16 +26,28 @@ func NewRepository(conn *sql.DB) *Repository {
 	return r
 }
 
-func (r *Repository) Find(p *page.Page) []*Model {
-	var rows, err = r._db.Query(r._sql["find"], p.Like(), p.Skip(), p.PerPage)
+func (r *Repository) Find(p *page.Page) ([]*Model, int) {
+	var rows, rerr = r._db.Query(r._sql["find"], p.Like(), p.Skip(), p.PerPage)
 
-	if err != nil {
-		log.Error(err)
+	if rerr != nil {
+		log.Error(rerr)
 	}
 
 	defer rows.Close()
 
-	return NewModels(rows)
+	var count, cerr = r._db.Query(r._sql["find_count"], p.Like())
+
+	if cerr != nil {
+		log.Error(cerr)
+	}
+
+	defer count.Close()
+	var total int
+
+	count.Next()
+	count.Scan(&total)
+
+	return NewModels(rows), total
 }
 
 func (r *Repository) FindBySlug(slug string) *Model {
