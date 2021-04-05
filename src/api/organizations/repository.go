@@ -64,7 +64,14 @@ func (r *Repository) FindBySlug(slug string) *Model {
 
 func (r *Repository) Mock() *Model {
 	var model = Mock()
-	var _, err = r._db.Exec(r._sql["create"], model.ID, model.Slug, model.Name, model.CreatedAt, model.UpdatedAt)
+	var _, err = r._db.Exec(
+		r._sql["create"],
+		model.ID,
+		model.Slug,
+		model.Name,
+		model.CreatedAt,
+		model.UpdatedAt,
+	)
 
 	if err != nil {
 		log.Error(err)
