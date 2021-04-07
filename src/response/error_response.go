@@ -5,6 +5,7 @@ import "net/http"
 var messages = map[int]string{
 	http.StatusInternalServerError: "internal server error",
 	http.StatusNotFound:            "not found",
+	http.StatusBadRequest:          "bad request",
 }
 
 type ErrorResponse struct {
@@ -13,10 +14,10 @@ type ErrorResponse struct {
 }
 
 func NewError(code int) *ErrorResponse {
-	var e = new(ErrorResponse)
+	var self = new(ErrorResponse)
 
-	e.Code = code
-	e.Message = messages[code]
+	self.Code = code
+	self.Message = messages[code]
 
-	return e
+	return self
 }

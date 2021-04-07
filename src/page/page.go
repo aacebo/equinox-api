@@ -8,44 +8,39 @@ import (
 )
 
 type Page struct {
-	Page    int    `form:"page"`
-	PerPage int    `form:"perPage"`
+	Page    int    `form:"page" binding:"min=1"`
+	PerPage int    `form:"perPage" binding:"min=5,max=100"`
 	Filter  string `form:"filter"`
 	_ctx    *gin.Context
 }
 
 func New(ctx *gin.Context) *Page {
-	var p = new(Page)
+	var self = new(Page)
 
-	p.Page = 1
-	p.PerPage = 10
-	p._ctx = ctx
+	self.Page = 1
+	self.PerPage = 10
 
-	ctx.BindQuery(&p)
-
-	if p.Page < 1 {
-		p.Page = 1
+	if err := ctx.BindQuery(self); err != nil {
+		return nil
 	}
 
-	if p.PerPage < 10 || p.PerPage > 100 {
-		p.PerPage = 10
-	}
+	self._ctx = ctx
 
-	return p
+	return self
 }
 
-func (p *Page) Like() string {
-	return fmt.Sprintf("%%%s%%", p.Filter)
+func (self *Page) Like() string {
+	return fmt.Sprintf("%%%s%%", self.Filter)
 }
 
-func (p *Page) Skip() int {
-	return (p.Page - 1) * p.PerPage
+func (self *Page) Skip() int {
+	return (self.Page - 1) * self.PerPage
 }
 
-func (p *Page) Pages(total int) int {
-	return int(math.Ceil(float64(total) / float64(p.PerPage)))
+func (self *Page) Pages(total int) int {
+	return int(math.Ceil(float64(total) / float64(self.PerPage)))
 }
 
-func (p *Page) Links(total int) *PageLinks {
-	return NewLinks(p, total)
+func (self *Page) Links(total int) *PageLinks {
+	return NewLinks(self, total)
 }

@@ -7,10 +7,17 @@ import (
 	"github.com/aacebo/equinox-api/src/response"
 )
 
-func Find(orgr *Repository) func(ctx *gin.Context) {
+func Find(orgr *Repository) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var orgs, total = orgr.Find(page.New(ctx))
+		var page = page.New(ctx)
 
-		response.OkPaged(ctx, total, orgs)
+		if page == nil {
+			response.BadRequest(ctx)
+			return
+		}
+
+		var orgs, total = orgr.Find(page)
+
+		response.OkPaged(ctx, page, total, orgs)
 	}
 }

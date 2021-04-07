@@ -15,29 +15,29 @@ type Response struct {
 	Data  interface{}     `json:"data"`
 }
 
-func _NewResponseMeta(total int, p *page.Page) *ResponseMeta {
-	var m = new(ResponseMeta)
+func _NewResponseMeta(p *page.Page, total int) *ResponseMeta {
+	var self = new(ResponseMeta)
 
-	m.Total = total
-	m.Pages = p.Pages(total)
+	self.Total = total
+	self.Pages = p.Pages(total)
 
-	return m
+	return self
 }
 
 func New(data interface{}) *Response {
-	var r = new(Response)
+	var self = new(Response)
 
-	r.Data = data
+	self.Data = data
 
-	return r
+	return self
 }
 
 func NewPaged(p *page.Page, total int, data interface{}) *Response {
-	var r = new(Response)
+	var self = new(Response)
 
-	r.Meta = _NewResponseMeta(total, p)
-	r.Links = p.Links(total)
-	r.Data = data
+	self.Meta = _NewResponseMeta(p, total)
+	self.Links = p.Links(total)
+	self.Data = data
 
-	return r
+	return self
 }

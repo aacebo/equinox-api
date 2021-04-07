@@ -15,35 +15,35 @@ type Logger struct {
 }
 
 func New(namespace string) *Logger {
-	var l = new(Logger)
+	var self = new(Logger)
 
-	l._info = log.New(os.Stderr, color.CyanString(fmt.Sprintf("[INFO][%s] ", namespace)), log.Ldate|log.Ltime)
-	l._warn = log.New(os.Stderr, color.YellowString(fmt.Sprintf("[WARN][%s] ", namespace)), log.Ldate|log.Ltime)
-	l._error = log.New(os.Stderr, color.RedString(fmt.Sprintf("[ERROR][%s] ", namespace)), log.Ldate|log.Ltime)
+	self._info = log.New(os.Stderr, color.CyanString(fmt.Sprintf("[INFO][%s] ", namespace)), log.Ldate|log.Ltime)
+	self._warn = log.New(os.Stderr, color.YellowString(fmt.Sprintf("[WARN][%s] ", namespace)), log.Ldate|log.Ltime)
+	self._error = log.New(os.Stderr, color.RedString(fmt.Sprintf("[ERROR][%s] ", namespace)), log.Ldate|log.Ltime)
 
-	return l
+	return self
 }
 
-func (l *Logger) Info(args ...interface{}) {
-	l._info.Print(args...)
+func (self *Logger) Info(args ...interface{}) {
+	self._info.Print(args...)
 }
 
-func (l *Logger) Infof(format string, args ...interface{}) {
-	l._info.Printf(format, args...)
+func (self *Logger) Infof(format string, args ...interface{}) {
+	self._info.Printf(format, args...)
 }
 
-func (l *Logger) Warn(args ...interface{}) {
-	l._warn.Print(args...)
+func (self *Logger) Warn(args ...interface{}) {
+	self._warn.Print(args...)
 }
 
-func (l *Logger) Warnf(format string, args ...interface{}) {
-	l._warn.Printf(format, args...)
+func (self *Logger) Warnf(format string, args ...interface{}) {
+	self._warn.Printf(format, args...)
 }
 
-func (l *Logger) Error(args ...interface{}) {
-	l._error.Print(args...)
+func (self *Logger) Error(args ...interface{}) {
+	self._error.Print(args...)
 }
 
-func (l *Logger) Errorf(format string, args ...interface{}) {
-	l._error.Printf(format, args...)
+func (self *Logger) Errorf(format string, args ...interface{}) {
+	self._error.Printf(format, args...)
 }

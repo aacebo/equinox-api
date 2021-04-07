@@ -13,21 +13,21 @@ type Repository struct {
 }
 
 func NewRepository(conn *sql.DB) *Repository {
-	var r = new(Repository)
+	var self = new(Repository)
 	var q, err = db.LoadScripts("organizations")
 
 	if err != nil {
 		log.Error(err)
 	}
 
-	r._db = conn
-	r._sql = q
+	self._db = conn
+	self._sql = q
 
-	return r
+	return self
 }
 
-func (r *Repository) Find(p *page.Page) ([]*Model, int) {
-	var rows, rerr = r._db.Query(r._sql["find"], p.Like(), p.Skip(), p.PerPage)
+func (self *Repository) Find(p *page.Page) ([]*Model, int) {
+	var rows, rerr = self._db.Query(self._sql["find"], p.Like(), p.Skip(), p.PerPage)
 
 	if rerr != nil {
 		log.Error(rerr)
@@ -35,7 +35,7 @@ func (r *Repository) Find(p *page.Page) ([]*Model, int) {
 
 	defer rows.Close()
 
-	var count, cerr = r._db.Query(r._sql["find_count"], p.Like())
+	var count, cerr = self._db.Query(self._sql["find_count"], p.Like())
 
 	if cerr != nil {
 		log.Error(cerr)
@@ -50,8 +50,8 @@ func (r *Repository) Find(p *page.Page) ([]*Model, int) {
 	return NewModels(rows), total
 }
 
-func (r *Repository) FindBySlug(slug string) *Model {
-	var rows, err = r._db.Query(r._sql["find_by_slug"], slug)
+func (self *Repository) FindBySlug(slug string) *Model {
+	var rows, err = self._db.Query(self._sql["find_by_slug"], slug)
 
 	if err != nil {
 		log.Error(err)
@@ -62,10 +62,10 @@ func (r *Repository) FindBySlug(slug string) *Model {
 	return NewModel(rows)
 }
 
-func (r *Repository) Mock() *Model {
+func (self *Repository) Mock() *Model {
 	var model = Mock()
-	var _, err = r._db.Exec(
-		r._sql["create"],
+	var _, err = self._db.Exec(
+		self._sql["create"],
 		model.ID,
 		model.Slug,
 		model.Name,

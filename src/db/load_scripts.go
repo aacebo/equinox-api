@@ -25,7 +25,6 @@ func LoadScripts(dir string) (map[string]string, error) {
 	for _, f := range files {
 		if f.IsDir() == false {
 			var name = f.Name()
-
 			var c, cerr = ioutil.ReadFile(fmt.Sprintf("%s/%s", path, name))
 
 			if cerr != nil {

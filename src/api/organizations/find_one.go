@@ -6,7 +6,7 @@ import (
 	"github.com/aacebo/equinox-api/src/response"
 )
 
-func FindOne(orgr *Repository) func(ctx *gin.Context) {
+func FindOne(orgr *Repository) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var org = orgr.FindBySlug(ctx.Param("org_slug"))
 

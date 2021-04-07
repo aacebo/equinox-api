@@ -15,6 +15,13 @@ func NotFound(ctx *gin.Context) {
 	)
 }
 
+func BadRequest(ctx *gin.Context) {
+	ctx.JSON(
+		http.StatusBadRequest,
+		gin.H{"error": NewError(http.StatusBadRequest)},
+	)
+}
+
 func Ok(ctx *gin.Context, data interface{}) {
 	ctx.JSON(
 		http.StatusOK,
@@ -22,11 +29,11 @@ func Ok(ctx *gin.Context, data interface{}) {
 	)
 }
 
-func OkPaged(ctx *gin.Context, total int, data interface{}) {
+func OkPaged(ctx *gin.Context, page *page.Page, total int, data interface{}) {
 	ctx.JSON(
 		http.StatusOK,
 		NewPaged(
-			page.New(ctx),
+			page,
 			total,
 			data,
 		),
