@@ -2,12 +2,7 @@ package organizations
 
 import (
 	"database/sql"
-	"fmt"
 	"time"
-
-	"github.com/google/uuid"
-	"github.com/gosimple/slug"
-	"syreclabs.com/go/faker"
 )
 
 type Model struct {
@@ -60,17 +55,4 @@ func NewModels(rows *sql.Rows) []*Model {
 	}
 
 	return res
-}
-
-func Mock() *Model {
-	var model = new(Model)
-	var name = fmt.Sprintf("%s %s", faker.Company().Name(), faker.RandomString(5))
-
-	model.ID = uuid.NewString()
-	model.Slug = slug.Make(name)
-	model.Name = name
-	model.CreatedAt = time.Now()
-	model.UpdatedAt = time.Now()
-
-	return model
 }

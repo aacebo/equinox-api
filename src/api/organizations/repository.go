@@ -2,6 +2,7 @@ package organizations
 
 import (
 	"database/sql"
+	"time"
 
 	"github.com/aacebo/equinox-api/src/db"
 	"github.com/aacebo/equinox-api/src/page"
@@ -50,6 +51,18 @@ func (self *Repository) Find(p *page.Page) ([]*Model, int) {
 	return NewModels(rows), total
 }
 
+func (self *Repository) FindById(id string) *Model {
+	var rows, err = self._db.Query(self._sql["find_by_id"], id)
+
+	if err != nil {
+		log.Error(err)
+	}
+
+	defer rows.Close()
+
+	return NewModel(rows)
+}
+
 func (self *Repository) FindBySlug(slug string) *Model {
 	var rows, err = self._db.Query(self._sql["find_by_slug"], slug)
 
@@ -62,20 +75,24 @@ func (self *Repository) FindBySlug(slug string) *Model {
 	return NewModel(rows)
 }
 
-func (self *Repository) Mock() *Model {
-	var model = Mock()
+func (self *Repository) Upsert(id string, slug string, name string, createdAt time.Time, updatedAt time.Time) {
+	var existing = self.FindById(id)
+	var cmd string = "create"
+
+	if existing != nil {
+		cmd = "update"
+	}
+
 	var _, err = self._db.Exec(
-		self._sql["create"],
-		model.ID,
-		model.Slug,
-		model.Name,
-		model.CreatedAt,
-		model.UpdatedAt,
+		self._sql[cmd],
+		id,
+		slug,
+		name,
+		createdAt,
+		updatedAt,
 	)
 
 	if err != nil {
 		log.Error(err)
 	}
-
-	return model
 }

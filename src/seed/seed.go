@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strconv"
 
 	"github.com/joho/godotenv"
 
@@ -14,7 +13,6 @@ import (
 
 func main() {
 	var env = os.Getenv("GO_ENV")
-	var count, _ = strconv.Atoi(os.Getenv("SEED_COUNT"))
 	var err = godotenv.Load(fmt.Sprintf(".env.%s", env))
 	var log = logger.New("seed")
 
@@ -31,8 +29,17 @@ func main() {
 	defer db.Close()
 
 	var orgr = organizations.NewRepository(db)
+	var orgs = organizations.NewSeed()
 
-	for i := 0; i < count; i++ {
-		orgr.Mock()
+	log.Infof("%d organizations", len(orgs.Organizations))
+
+	for _, o := range orgs.Organizations {
+		orgr.Upsert(
+			o.ID,
+			o.Slug,
+			o.Name,
+			o.CreatedAt,
+			o.UpdatedAt,
+		)
 	}
 }

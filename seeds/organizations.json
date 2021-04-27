@@ -1,0 +1,25 @@
+{
+	"organizations": [
+		{
+			"id": "dce872ca-c7cb-479b-a17d-6eaff2793d7e",
+			"slug": "apple",
+			"name": "Apple",
+			"createdAt": "2021-04-10T20:43:54.752Z",
+			"updatedAt": "2021-04-10T20:43:54.752Z"
+		},
+		{
+			"id": "bfce7979-fcb0-44ad-a0a8-d734ad88e102",
+			"slug": "google",
+			"name": "Google",
+			"createdAt": "2021-04-10T20:43:54.752Z",
+			"updatedAt": "2021-04-10T20:43:54.752Z"
+		},
+		{
+			"id": "1f6ba031-e8c8-4d4f-9ba9-9288a43ad3c9",
+			"slug": "facebook",
+			"name": "Facebook",
+			"createdAt": "2021-04-10T20:43:54.752Z",
+			"updatedAt": "2021-04-10T20:43:54.752Z"
+		}
+	]
+}

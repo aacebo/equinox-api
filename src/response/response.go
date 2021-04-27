@@ -1,8 +1,6 @@
 package response
 
-import (
-	"github.com/aacebo/equinox-api/src/page"
-)
+import "github.com/aacebo/equinox-api/src/page"
 
 type ResponseMeta struct {
 	Total int `json:"total"`
