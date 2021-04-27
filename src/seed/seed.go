@@ -23,10 +23,9 @@ func main() {
 	log.Infof("running on %s", env)
 
 	var db = db.Connect()
+	defer db.Close()
 
 	log.Info("connected to database...")
-
-	defer db.Close()
 
 	var orgr = organizations.NewRepository(db)
 	var orgs = organizations.NewSeed()
