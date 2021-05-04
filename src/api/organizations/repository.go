@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/aacebo/equinox-api/src/db"
+	"github.com/aacebo/equinox-api/src/log"
 	"github.com/aacebo/equinox-api/src/page"
 )
 
@@ -18,7 +19,7 @@ func NewRepository(conn *sql.DB) *Repository {
 	var q, err = db.LoadScripts("organizations")
 
 	if err != nil {
-		log.Error(err)
+		log.Error.Fatal(err)
 	}
 
 	self._db = conn
@@ -31,7 +32,7 @@ func (self *Repository) Find(p *page.Page) ([]*Model, int) {
 	var rows, rerr = self._db.Query(self._sql["find"], p.Like(), p.Skip(), p.PerPage)
 
 	if rerr != nil {
-		log.Error(rerr)
+		log.Error.Fatal(rerr)
 	}
 
 	defer rows.Close()
@@ -39,7 +40,7 @@ func (self *Repository) Find(p *page.Page) ([]*Model, int) {
 	var count, cerr = self._db.Query(self._sql["find_count"], p.Like())
 
 	if cerr != nil {
-		log.Error(cerr)
+		log.Error.Fatal(cerr)
 	}
 
 	defer count.Close()
@@ -55,7 +56,7 @@ func (self *Repository) FindById(id string) *Model {
 	var rows, err = self._db.Query(self._sql["find_by_id"], id)
 
 	if err != nil {
-		log.Error(err)
+		log.Error.Fatal(err)
 	}
 
 	defer rows.Close()
@@ -67,7 +68,7 @@ func (self *Repository) FindBySlug(slug string) *Model {
 	var rows, err = self._db.Query(self._sql["find_by_slug"], slug)
 
 	if err != nil {
-		log.Error(err)
+		log.Error.Fatal(err)
 	}
 
 	defer rows.Close()
@@ -93,6 +94,6 @@ func (self *Repository) Upsert(id string, slug string, name string, createdAt ti
 	)
 
 	if err != nil {
-		log.Error(err)
+		log.Error.Fatal(err)
 	}
 }

@@ -3,14 +3,16 @@ package organizations
 import (
 	"database/sql"
 	"time"
+
+	"github.com/aacebo/equinox-api/src/log"
 )
 
 type Model struct {
-	ID        string    `json:"id"`
-	Slug      string    `json:"slug"`
-	Name      string    `json:"name"`
-	CreatedAt time.Time `json:"createdAt"`
-	UpdatedAt time.Time `json:"updatedAt"`
+	ID        string     `json:"id"`
+	Slug      string     `json:"slug"`
+	Name      string     `json:"name"`
+	CreatedAt *time.Time `json:"createdAt"`
+	UpdatedAt *time.Time `json:"updatedAt"`
 }
 
 func NewModel(rows *sql.Rows) *Model {
@@ -28,7 +30,7 @@ func NewModel(rows *sql.Rows) *Model {
 	)
 
 	if err != nil {
-		log.Error(err)
+		log.Error.Fatal(err)
 	}
 
 	return model
@@ -48,7 +50,7 @@ func NewModels(rows *sql.Rows) []*Model {
 		)
 
 		if err != nil {
-			log.Error(err)
+			log.Error.Fatal(err)
 		}
 
 		res = append(res, model)

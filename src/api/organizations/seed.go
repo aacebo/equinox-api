@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
+
+	"github.com/aacebo/equinox-api/src/log"
 )
 
 type Seed struct {
@@ -15,19 +17,19 @@ func NewSeed() *Seed {
 	var file, ferr = os.Open("./seeds/organizations.json")
 
 	if ferr != nil {
-		log.Error(ferr)
+		log.Error.Fatal(ferr)
 	}
 
 	var bytes, berr = ioutil.ReadAll(file)
 
 	if berr != nil {
-		log.Error(berr)
+		log.Error.Fatal(berr)
 	}
 
 	var jerr = json.Unmarshal(bytes, &seed)
 
 	if jerr != nil {
-		log.Error(jerr)
+		log.Error.Fatal(jerr)
 	}
 
 	return seed

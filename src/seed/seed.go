@@ -8,37 +8,36 @@ import (
 
 	"github.com/aacebo/equinox-api/src/api/organizations"
 	"github.com/aacebo/equinox-api/src/db"
-	"github.com/aacebo/equinox-api/src/logger"
+	"github.com/aacebo/equinox-api/src/log"
 )
 
 func main() {
 	var env = os.Getenv("GO_ENV")
 	var err = godotenv.Load(fmt.Sprintf(".env.%s", env))
-	var log = logger.New("seed")
 
 	if err != nil {
-		log.Error(err)
+		log.Error.Fatal(err)
 	}
 
-	log.Infof("running on %s", env)
+	log.Info.Printf("running on %s", env)
 
 	var db = db.Connect()
 	defer db.Close()
 
-	log.Info("connected to database...")
+	log.Info.Print("connected to database...")
 
 	var orgr = organizations.NewRepository(db)
 	var orgs = organizations.NewSeed()
 
-	log.Infof("%d organizations", len(orgs.Organizations))
+	log.Info.Printf("%d organizations", len(orgs.Organizations))
 
 	for _, o := range orgs.Organizations {
 		orgr.Upsert(
 			o.ID,
 			o.Slug,
 			o.Name,
-			o.CreatedAt,
-			o.UpdatedAt,
+			*o.CreatedAt,
+			*o.UpdatedAt,
 		)
 	}
 }
