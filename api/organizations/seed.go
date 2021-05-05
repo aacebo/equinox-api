@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/aacebo/equinox-api/src/log"
+	"github.com/aacebo/equinox-api/log"
 )
 
 type Seed struct {

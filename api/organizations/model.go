@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/aacebo/equinox-api/src/log"
+	"github.com/aacebo/equinox-api/log"
 )
 
 type Model struct {

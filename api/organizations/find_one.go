@@ -3,7 +3,7 @@ package organizations
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/aacebo/equinox-api/src/response"
+	"github.com/aacebo/equinox-api/response"
 )
 
 func FindOne(orgr *Repository) gin.HandlerFunc {

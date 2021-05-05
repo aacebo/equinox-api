@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/aacebo/equinox-api/src/api/organizations"
+	"github.com/aacebo/equinox-api/api/organizations"
 )
 
 func Router(env string, db *sql.DB) *gin.Engine {

@@ -6,9 +6,9 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"github.com/aacebo/equinox-api/src/api/organizations"
-	"github.com/aacebo/equinox-api/src/db"
-	"github.com/aacebo/equinox-api/src/log"
+	"github.com/aacebo/equinox-api/api/organizations"
+	"github.com/aacebo/equinox-api/db"
+	"github.com/aacebo/equinox-api/log"
 )
 
 func main() {

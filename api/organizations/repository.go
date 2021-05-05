@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/aacebo/equinox-api/src/db"
-	"github.com/aacebo/equinox-api/src/log"
-	"github.com/aacebo/equinox-api/src/page"
+	"github.com/aacebo/equinox-api/db"
+	"github.com/aacebo/equinox-api/log"
+	"github.com/aacebo/equinox-api/page"
 )
 
 type Repository struct {

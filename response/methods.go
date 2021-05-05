@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/aacebo/equinox-api/src/page"
+	"github.com/aacebo/equinox-api/page"
 )
 
 func NotFound(ctx *gin.Context) {

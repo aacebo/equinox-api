@@ -7,7 +7,7 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"github.com/aacebo/equinox-api/src/log"
+	"github.com/aacebo/equinox-api/log"
 )
 
 func Connect() *sql.DB {
