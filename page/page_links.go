@@ -12,7 +12,7 @@ type PageLinks struct {
 func NewLinks(p *Page, total int) *PageLinks {
 	var self = new(PageLinks)
 	var pages = p.Pages(total)
-	var path = p._ctx.Request.URL.Path
+	var path = p.ctx.Request.URL.Path
 	var query = fmt.Sprintf("&perPage=%d", p.PerPage)
 
 	if len(p.Filter) > 0 {

@@ -11,7 +11,7 @@ type Page struct {
 	Page    int    `form:"page" binding:"min=1"`
 	PerPage int    `form:"perPage" binding:"min=5,max=100"`
 	Filter  string `form:"filter"`
-	_ctx    *gin.Context
+	ctx     *gin.Context
 }
 
 func New(ctx *gin.Context) *Page {
@@ -24,7 +24,7 @@ func New(ctx *gin.Context) *Page {
 		return nil
 	}
 
-	self._ctx = ctx
+	self.ctx = ctx
 
 	return self
 }

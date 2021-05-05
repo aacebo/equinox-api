@@ -10,8 +10,8 @@ import (
 )
 
 type Repository struct {
-	_db  *sql.DB
-	_sql map[string]string
+	db  *sql.DB
+	sql map[string]string
 }
 
 func NewRepository(conn *sql.DB) *Repository {
@@ -22,21 +22,21 @@ func NewRepository(conn *sql.DB) *Repository {
 		log.Error.Fatal(err)
 	}
 
-	self._db = conn
-	self._sql = q
+	self.db = conn
+	self.sql = q
 
 	return self
 }
 
 func (self *Repository) Find(p *page.Page) ([]*Model, int) {
-	var rows, err = self._db.Query(self._sql["find"], p.Like(), p.Skip(), p.PerPage)
+	var rows, err = self.db.Query(self.sql["find"], p.Like(), p.Skip(), p.PerPage)
 	defer rows.Close()
 
 	if err != nil {
 		log.Error.Fatal(err)
 	}
 
-	count, err := self._db.Query(self._sql["find_count"], p.Like())
+	count, err := self.db.Query(self.sql["find_count"], p.Like())
 	defer count.Close()
 
 	if err != nil {
@@ -52,7 +52,7 @@ func (self *Repository) Find(p *page.Page) ([]*Model, int) {
 }
 
 func (self *Repository) FindById(id string) *Model {
-	var rows, err = self._db.Query(self._sql["find_by_id"], id)
+	var rows, err = self.db.Query(self.sql["find_by_id"], id)
 	defer rows.Close()
 
 	if err != nil {
@@ -63,7 +63,7 @@ func (self *Repository) FindById(id string) *Model {
 }
 
 func (self *Repository) FindBySlug(slug string) *Model {
-	var rows, err = self._db.Query(self._sql["find_by_slug"], slug)
+	var rows, err = self.db.Query(self.sql["find_by_slug"], slug)
 	defer rows.Close()
 
 	if err != nil {
@@ -81,8 +81,8 @@ func (self *Repository) Upsert(id string, slug string, name string, createdAt ti
 		cmd = "update"
 	}
 
-	_, err := self._db.Exec(
-		self._sql[cmd],
+	_, err := self.db.Exec(
+		self.sql[cmd],
 		id,
 		slug,
 		name,
