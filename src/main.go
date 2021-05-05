@@ -24,12 +24,9 @@ func main() {
 	log.Info.Printf("running on %s", env)
 
 	var db = db.Connect()
+	defer db.Close()
 
 	log.Info.Print("connected to database...")
 
-	defer db.Close()
-
-	var router = api.Router(env, db)
-
-	router.Run(fmt.Sprintf("localhost:%s", port))
+	api.Router(env, db).Run(fmt.Sprintf("localhost:%s", port))
 }

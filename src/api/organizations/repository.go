@@ -29,21 +29,20 @@ func NewRepository(conn *sql.DB) *Repository {
 }
 
 func (self *Repository) Find(p *page.Page) ([]*Model, int) {
-	var rows, rerr = self._db.Query(self._sql["find"], p.Like(), p.Skip(), p.PerPage)
-
-	if rerr != nil {
-		log.Error.Fatal(rerr)
-	}
-
+	var rows, err = self._db.Query(self._sql["find"], p.Like(), p.Skip(), p.PerPage)
 	defer rows.Close()
 
-	var count, cerr = self._db.Query(self._sql["find_count"], p.Like())
-
-	if cerr != nil {
-		log.Error.Fatal(cerr)
+	if err != nil {
+		log.Error.Fatal(err)
 	}
 
+	count, err := self._db.Query(self._sql["find_count"], p.Like())
 	defer count.Close()
+
+	if err != nil {
+		log.Error.Fatal(err)
+	}
+
 	var total int
 
 	count.Next()
@@ -54,37 +53,35 @@ func (self *Repository) Find(p *page.Page) ([]*Model, int) {
 
 func (self *Repository) FindById(id string) *Model {
 	var rows, err = self._db.Query(self._sql["find_by_id"], id)
+	defer rows.Close()
 
 	if err != nil {
 		log.Error.Fatal(err)
 	}
-
-	defer rows.Close()
 
 	return NewModel(rows)
 }
 
 func (self *Repository) FindBySlug(slug string) *Model {
 	var rows, err = self._db.Query(self._sql["find_by_slug"], slug)
+	defer rows.Close()
 
 	if err != nil {
 		log.Error.Fatal(err)
 	}
-
-	defer rows.Close()
 
 	return NewModel(rows)
 }
 
 func (self *Repository) Upsert(id string, slug string, name string, createdAt time.Time, updatedAt time.Time) {
 	var existing = self.FindById(id)
-	var cmd string = "create"
+	var cmd = "create"
 
 	if existing != nil {
 		cmd = "update"
 	}
 
-	var _, err = self._db.Exec(
+	_, err := self._db.Exec(
 		self._sql[cmd],
 		id,
 		slug,

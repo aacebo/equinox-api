@@ -14,22 +14,22 @@ type Seed struct {
 
 func NewSeed() *Seed {
 	var seed = new(Seed)
-	var file, ferr = os.Open("./seeds/organizations.json")
+	var file, err = os.Open("./seeds/organizations.json")
 
-	if ferr != nil {
-		log.Error.Fatal(ferr)
+	if err != nil {
+		log.Error.Fatal(err)
 	}
 
-	var bytes, berr = ioutil.ReadAll(file)
+	bytes, err := ioutil.ReadAll(file)
 
-	if berr != nil {
-		log.Error.Fatal(berr)
+	if err != nil {
+		log.Error.Fatal(err)
 	}
 
-	var jerr = json.Unmarshal(bytes, &seed)
+	err = json.Unmarshal(bytes, &seed)
 
-	if jerr != nil {
-		log.Error.Fatal(jerr)
+	if err != nil {
+		log.Error.Fatal(err)
 	}
 
 	return seed

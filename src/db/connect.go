@@ -25,9 +25,7 @@ func Connect() *sql.DB {
 		log.Error.Fatal(err)
 	}
 
-	err = db.Ping()
-
-	if err != nil {
+	if err = db.Ping(); err != nil {
 		log.Error.Fatal(err)
 	}
 
