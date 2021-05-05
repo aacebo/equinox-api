@@ -13,7 +13,7 @@ run:
 	go run main.go
 
 seed:
-	go run seed/seed.go
+	go run cmd/seed/main.go
 
 migrate-up:
 	migrate -source file://sql/migrations -database $(POSTGRES_CONNECTION_STRING) up
