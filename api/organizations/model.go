@@ -9,7 +9,7 @@ import (
 
 type Model struct {
 	ID        string     `json:"id"`
-	Key       string     `json:"-"`
+	Key       string     `json:"key"`
 	Slug      string     `json:"slug"`
 	Name      string     `json:"name"`
 	CreatedAt *time.Time `json:"createdAt"`

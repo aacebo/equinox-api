@@ -1,6 +1,4 @@
 SELECT
-	id,
-	key,
 	slug,
 	name,
 	created_at,

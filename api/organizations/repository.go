@@ -28,7 +28,7 @@ func NewRepository(conn *sql.DB) *Repository {
 	return self
 }
 
-func (self *Repository) Find(p *page.Page) ([]*Model, int) {
+func (self *Repository) Find(p *page.Page) ([]*FindResponseModel, int) {
 	var rows, err = self.db.Query(self.sql["find"], p.Like(), p.Skip(), p.PerPage)
 	defer rows.Close()
 
@@ -48,7 +48,7 @@ func (self *Repository) Find(p *page.Page) ([]*Model, int) {
 	count.Next()
 	count.Scan(&total)
 
-	return NewModels(rows), total
+	return NewFindResponseModel(rows), total
 }
 
 func (self *Repository) FindById(id string) *Model {
