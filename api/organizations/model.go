@@ -9,6 +9,7 @@ import (
 
 type Model struct {
 	ID        string     `json:"id"`
+	Key       string     `json:"-"`
 	Slug      string     `json:"slug"`
 	Name      string     `json:"name"`
 	CreatedAt *time.Time `json:"createdAt"`
@@ -23,6 +24,7 @@ func NewModel(rows *sql.Rows) *Model {
 	var model = new(Model)
 	var err = rows.Scan(
 		&model.ID,
+		&model.Key,
 		&model.Slug,
 		&model.Name,
 		&model.CreatedAt,
@@ -43,6 +45,7 @@ func NewModels(rows *sql.Rows) []*Model {
 		var model = new(Model)
 		var err = rows.Scan(
 			&model.ID,
+			&model.Key,
 			&model.Slug,
 			&model.Name,
 			&model.CreatedAt,

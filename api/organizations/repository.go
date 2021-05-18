@@ -73,7 +73,7 @@ func (self *Repository) FindBySlug(slug string) *Model {
 	return NewModel(rows)
 }
 
-func (self *Repository) Upsert(id string, slug string, name string, createdAt time.Time, updatedAt time.Time) {
+func (self *Repository) Upsert(id string, key string, slug string, name string, createdAt time.Time, updatedAt time.Time) {
 	var existing = self.FindById(id)
 	var cmd = "create"
 
@@ -84,6 +84,7 @@ func (self *Repository) Upsert(id string, slug string, name string, createdAt ti
 	_, err := self.db.Exec(
 		self.sql[cmd],
 		id,
+		key,
 		slug,
 		name,
 		createdAt,

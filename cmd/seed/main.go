@@ -34,6 +34,7 @@ func main() {
 	for _, o := range orgs.Organizations {
 		orgr.Upsert(
 			o.ID,
+			o.Key,
 			o.Slug,
 			o.Name,
 			*o.CreatedAt,

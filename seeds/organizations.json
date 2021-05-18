@@ -2,6 +2,7 @@
 	"organizations": [
 		{
 			"id": "dce872ca-c7cb-479b-a17d-6eaff2793d7e",
+			"key": "fea2d472-9613-4414-9efc-1746db9b37ce",
 			"slug": "apple",
 			"name": "Apple",
 			"createdAt": "2021-04-10T20:43:54.752Z",
@@ -9,6 +10,7 @@
 		},
 		{
 			"id": "bfce7979-fcb0-44ad-a0a8-d734ad88e102",
+			"key": "8cee7acc-b0fd-411d-ac5f-d6ca509e1e52",
 			"slug": "google",
 			"name": "Google",
 			"createdAt": "2021-04-10T20:43:54.752Z",
@@ -16,6 +18,7 @@
 		},
 		{
 			"id": "1f6ba031-e8c8-4d4f-9ba9-9288a43ad3c9",
+			"key": "4a1805dc-b4b1-4d0e-8c4c-190fe9b35259",
 			"slug": "facebook",
 			"name": "Facebook",
 			"createdAt": "2021-04-10T20:43:54.752Z",

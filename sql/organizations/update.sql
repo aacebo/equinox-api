@@ -1,3 +1,3 @@
 UPDATE organizations SET
-slug = $2, name = $3, created_at = $4, updated_at = $5
+key = $2, slug = $3, name = $4, created_at = $5, updated_at = $6
 WHERE id = $1;
